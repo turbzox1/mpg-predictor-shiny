@@ -586,7 +586,7 @@ SlideDeck.prototype.recordTimings = function(pause){
 
 SlideDeck.prototype.showContents = function(){
   var self = this;
-  $('ul.dropdown-menu li a').live('click', function(){
+  $(document).on('click', 'ul.dropdown-menu li a', function(){
     var i = $(this).data('slide');
     self.gotoSlide(i+1);
   });
@@ -599,7 +599,7 @@ SlideDeck.prototype.highlightCurSlide = function(){
   $('ul.dropdown-menu li:eq(' + _i + ')').addClass('current'); 
   $('div.pagination li').removeClass('active');
   $('div.pagination li:eq(' + _i + ')').addClass('active'); 
-  $('div.pagination li a').live('click', function(){
+  $(document).on('click', 'div.pagination li a', function(){
     var i = $(this).data('slide');
     self.gotoSlide(i + 1); 
   });
