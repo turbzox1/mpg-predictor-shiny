@@ -1,0 +1,54 @@
+---
+title: "How Engine Power Shapes Fuel Economy"
+subtitle: "An interactive look at the mtcars data with Plotly"
+author: "Piyush Patni"
+date: "October 27, 2026"
+output:
+  ioslides_presentation:
+    widescreen: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(plotly)
+```
+
+## What this is about
+
+I wanted to see how a car's power, weight and cylinder count together affect how far it goes on a gallon of fuel.
+
+- Data: R's built-in `mtcars` dataset (32 cars, 1974 Motor Trend)
+- Each point on the next slide is one car
+- **Hover** over a point to see the car's name and details, **drag** to zoom, and **double-click** to reset
+
+## Horsepower vs MPG
+
+```{r plot, fig.width=10, fig.height=5}
+cars <- mtcars
+cars$name <- rownames(mtcars)
+cars$cyl  <- factor(cars$cyl)
+
+plot_ly(cars, x = ~hp, y = ~mpg, color = ~cyl, size = ~wt, sizes = c(8, 32),
+        colors = c("#2a9d8f", "#e9c46a", "#e76f51"),
+        type = "scatter", mode = "markers",
+        marker = list(sizemode = "diameter", opacity = 0.8,
+                      line = list(width = 1, color = "#ffffff")),
+        text = ~paste0("<b>", name, "</b><br>MPG: ", mpg,
+                       "<br>Horsepower: ", hp,
+                       "<br>Weight: ", wt * 1000, " lbs"),
+        hoverinfo = "text") %>%
+  layout(xaxis = list(title = "Horsepower"),
+         yaxis = list(title = "Miles per gallon"),
+         legend = list(title = list(text = "<b>Cylinders</b>")))
+```
+
+<small>Bubble size shows the car's weight.</small>
+
+## What the plot shows
+
+- Fuel economy drops steeply as horsepower rises
+- The 4-cylinder cars (green) form a clear cluster of light, efficient cars on the top left
+- The 8-cylinder cars (orange) are heavier and sit at the bottom right
+- A few cars, like the Maserati Bora, stand out with very high power and poor mileage
+
+Thanks for reviewing!
