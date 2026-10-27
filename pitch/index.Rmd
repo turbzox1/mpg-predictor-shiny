@@ -62,7 +62,7 @@ along with a 95% prediction interval so users know how uncertain the estimate is
 - <b>Honest:</b> shows a prediction interval, not just a single number
 - <b>Documented:</b> a built-in How-to-use tab walks new users through it
 
-<b>App:</b> https://YOUR-ACCOUNT.shinyapps.io/mpg-predictor/
+<b>App:</b> https://turboxz.shinyapps.io/mpg-predictor/
 
 <b>Code:</b> https://github.com/turbzox1/mpg-predictor-shiny
 

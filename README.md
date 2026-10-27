@@ -5,5 +5,5 @@ A small Shiny app that predicts a car's fuel efficiency (MPG) from its weight, h
 - `app/ui.R` and `app/server.R`: the Shiny application, including a built-in "How to use" tab
 - `pitch/`: the 5-slide Slidify pitch presentation (`index.Rmd` source, `index.html` output)
 
-Live app: https://YOUR-ACCOUNT.shinyapps.io/mpg-predictor/
+Live app: https://turboxz.shinyapps.io/mpg-predictor/
 Pitch: https://turbzox1.github.io/mpg-predictor-shiny/pitch/
