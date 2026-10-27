@@ -1,0 +1,42 @@
+---
+title: "Exploring Manipal on a Map"
+author: "Piyush Patni"
+date: "October 27, 2026"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(leaflet)
+```
+
+Manipal is a small university town on the coast of Karnataka, India. Below is an interactive map of some places worth knowing if you ever visit, from the campus itself to the beaches nearby. **Click a marker** to see what each place is, and zoom or drag to look around.
+
+```{r map}
+places <- data.frame(
+  name = c("Manipal Institute of Technology", "End Point", "Manipal Lake",
+           "Malpe Beach", "Sri Krishna Temple, Udupi", "St. Mary's Island"),
+  type = c("Campus", "Viewpoint", "Nature", "Beach", "Temple", "Island"),
+  lat  = c(13.3525, 13.3489, 13.3561, 13.3510, 13.3415, 13.3770),
+  lng  = c(74.7929, 74.7843, 74.7905, 74.7046, 74.7543, 74.6728),
+  desc = c("The engineering campus where this map was made.",
+           "Popular sunset spot overlooking the Swarna river valley.",
+           "A quiet lake with a walking path, great for evenings.",
+           "Wide sandy beach about 20 minutes from campus.",
+           "Famous 13th-century temple in the heart of Udupi.",
+           "Small island known for its hexagonal basalt rock columns.")
+)
+
+pal <- colorFactor(c("#1f77b4", "#ff7f0e", "#2ca02c", "#17becf", "#d62728", "#9467bd"),
+                   domain = places$type)
+
+leaflet(places, width = "100%", height = 520) %>%
+  addTiles() %>%
+  addCircleMarkers(~lng, ~lat, color = ~pal(type), radius = 9,
+                   fillOpacity = 0.85, stroke = TRUE, weight = 2,
+                   popup = ~paste0("<b>", name, "</b><br>", desc),
+                   label = ~name) %>%
+  addLegend("bottomright", pal = pal, values = ~type, title = "Type of place")
+```
+
+Map data from OpenStreetMap contributors. Built with R Markdown and the `leaflet` package.
