@@ -1,0 +1,81 @@
+---
+title       : MPG Predictor
+subtitle    : A quick way to see how weight, power and gearbox affect fuel efficiency
+author      : Piyush Patni
+job         : Developing Data Products, Course Project
+framework   : io2012
+highlighter : highlight.js
+hitheme     : tomorrow
+widgets     : []
+mode        : selfcontained
+knit        : slidify::knit2slides
+---
+
+## The problem
+
+When people shop for a car, they usually compare horsepower and price, but it's
+hard to get a feel for how much those choices cost at the pump.
+
+- Is a heavier car really that much worse?
+- How much efficiency do you give up for an extra 50 horsepower?
+- Does a manual gearbox still make a difference?
+
+<b>MPG Predictor</b> answers these in seconds: move three inputs and watch the
+predicted miles per gallon change.
+
+--- .class #id
+
+## How it works
+
+The app fits a linear regression on R's built-in `mtcars` data (32 cars) using
+weight, horsepower and transmission:
+
+
+```r
+fit <- lm(mpg ~ wt + hp + am, data = mtcars)
+round(coef(fit), 3)
+```
+
+```
+## (Intercept)          wt          hp          am 
+##      34.003      -2.879      -0.037       2.084
+```
+
+Each extra 1000 lbs costs about 2.9 MPG, and each
+extra 100 hp costs about 3.7 MPG.
+
+---
+
+## A live example
+
+This is the same calculation the app server runs when you set the sliders to a
+3,200 lb, 150 hp car with a manual gearbox:
+
+
+```r
+myCar <- data.frame(wt = 3.2, hp = 150, am = 1)
+round(predict(fit, myCar, interval = "prediction"), 1)
+```
+
+```
+##    fit  lwr  upr
+## 1 21.3 15.7 26.8
+```
+
+So the app reports about <b>21.3 MPG</b>,
+along with a 95% prediction interval so users know how uncertain the estimate is.
+
+---
+
+## Try it
+
+- <b>Inputs:</b> sliders for weight and horsepower, a radio button for transmission, a checkbox to show similar cars
+- <b>Simple:</b> three inputs, instant results, no statistics knowledge needed
+- <b>Honest:</b> shows a prediction interval, not just a single number
+- <b>Documented:</b> a built-in How-to-use tab walks new users through it
+
+<b>App:</b> https://YOUR-ACCOUNT.shinyapps.io/mpg-predictor/
+
+<b>Code:</b> https://github.com/turbzox1/mpg-predictor-shiny
+
+Thanks for reviewing!

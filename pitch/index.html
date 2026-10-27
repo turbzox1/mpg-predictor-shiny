@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MPG Predictor</title>
+  <meta charset="utf-8">
+  <meta name="description" content="MPG Predictor">
+  <meta name="author" content="Piyush Patni">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  
+  <hgroup class="auto-fadein">
+    <h1>MPG Predictor</h1>
+    <h2>A quick way to see how weight, power and gearbox affect fuel efficiency</h2>
+    <p>Piyush Patni<br/>Developing Data Products, Course Project</p>
+  </hgroup>
+  
+  <article></article>  
+  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  
+  <article data-timings="">
+    <h2 id="the-problem">The problem</h2>
+<p>When people shop for a car, they usually compare horsepower and price, but it<U+2019>s
+hard to get a feel for how much those choices cost at the pump.</p>
+<ul>
+<li>Is a heavier car really that much worse?</li>
+<li>How much efficiency do you give up for an extra 50 horsepower?</li>
+<li>Does a manual gearbox still make a difference?</li>
+</ul>
+<p><b>MPG Predictor</b> answers these in seconds: move three inputs and watch the
+predicted miles per gallon change.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  
+  <article data-timings="">
+    <h2 id="how-it-works">How it works</h2>
+<p>The app fits a linear regression on R<U+2019>s built-in <code>mtcars</code> data (32 cars) using
+weight, horsepower and transmission:</p>
+<pre><code class="language-r">fit &lt;- lm(mpg ~ wt + hp + am, data = mtcars)
+round(coef(fit), 3)
+</code></pre>
+<pre><code>## (Intercept)          wt          hp          am 
+##      34.003      -2.879      -0.037       2.084
+</code></pre>
+<p>Each extra 1000 lbs costs about 2.9 MPG, and each
+extra 100 hp costs about 3.7 MPG.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  
+  <article data-timings="">
+    <h2 id="a-live-example">A live example</h2>
+<p>This is the same calculation the app server runs when you set the sliders to a
+3,200 lb, 150 hp car with a manual gearbox:</p>
+<pre><code class="language-r">myCar &lt;- data.frame(wt = 3.2, hp = 150, am = 1)
+round(predict(fit, myCar, interval = &quot;prediction&quot;), 1)
+</code></pre>
+<pre><code>##    fit  lwr  upr
+## 1 21.3 15.7 26.8
+</code></pre>
+<p>So the app reports about <b>21.3 MPG</b>,
+along with a 95% prediction interval so users know how uncertain the estimate is.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  
+  <article data-timings="">
+    <h2 id="try-it">Try it</h2>
+<ul>
+<li><b>Inputs:</b> sliders for weight and horsepower, a radio button for transmission, a checkbox to show similar cars</li>
+<li><b>Simple:</b> three inputs, instant results, no statistics knowledge needed</li>
+<li><b>Honest:</b> shows a prediction interval, not just a single number</li>
+<li><b>Documented:</b> a built-in How-to-use tab walks new users through it</li>
+</ul>
+<p><b>App:</b> <a href="https://YOUR-ACCOUNT.shinyapps.io/mpg-predictor/">https://YOUR-ACCOUNT.shinyapps.io/mpg-predictor/</a></p>
+<p><b>Code:</b> <a href="https://github.com/turbzox1/mpg-predictor-shiny">https://github.com/turbzox1/mpg-predictor-shiny</a></p>
+<p>Thanks for reviewing!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+  
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='NA'>
+         2
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+    
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='NA'>
+         4
+      </a>
+    </li>
+    
+    </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
